@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal</title>
+    <style>
+        /* Estilos generales */
+        body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://assets.epicurious.com/photos/57eebe2eb382c3c017d3fff0/16:9/w_1920,c_limit/supermarket-shelves.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(80%);
+    z-index: -1;
+}
+
+
+
+
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 700px; /* Tamaño máximo de la caja */
+        }
+
+        h1 {
+            font-size: 2.0em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color:  #e9f7ef;
+            color: black;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color:#f4ecf7;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 1.8em;
+        }
+
+        .result-item {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .result-item p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+
+        /* Botones adicionales */
+        .extra-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .extra-buttons a {
+            padding: 10px 20px;
+            background-color:  #e9f7ef;
+            color: black;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .extra-buttons a:hover {
+            background-color: #f4ecf7;
+        }
+
+        /* Estilos para pantallas pequeñas */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            button, input[type="text"] {
+                font-size: 14px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .result-item p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Menú Principal</h1>
+
+        <!-- Formulario de búsqueda -->
+        <form method="GET" action="{% url 'buscar_producto' %}">
+            <input type="text" name="q" placeholder="Buscar por nombre de producto" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <h2>Resultados de la búsqueda:</h2>
+
+        <!-- Mostrar los resultados de la búsqueda -->
+        {% if resultados %}
+            {% for resultado in resultados %}
+                <div class="result-item">
+                    <p><strong>Nombre del Comercio:</strong> {{ resultado.nombre_comercio }}</p>
+                    <p><strong>Fecha de subida:</strong> {{ resultado.fecha_subida }}</p>
+                    <p><strong>Nombre del Producto:</strong> {{ resultado.nombre_producto }}</p>
+                    <p><strong>Precio:</strong> {{ resultado.precio }} pesos chilenos</p>
+                    <p><strong>Descripción:</strong> {{ resultado.descripcion }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron resultados.</p>
+        {% endif %}
+
+        <!-- Botones adicionales -->
+        <div class="extra-buttons">
+            <a href="{% url 'ingresar_azucar' %}">Ingresar Producto Sin Azucar</a>
+            <a href="{% url 'ingresar_vegano' %}">Ingresar Producto Vegano</a>
+            <a href="{% url 'ingresar_gluten' %}">Ingresar Producto Gluten Free</a>
+            <a href="{% url 'about' %}">Sobre nosotros</a>
+            <a href="{% url 'logout' %}">Cerrar sesion</a>
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Producto Sin Azucar</title>
+    <style>
+        /* Estilos generales */
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://valleyoaks.org/wp-content/uploads/2022/09/566-065-5.1-Sugar-Crash-The-Downside-of-Eating-Sweets.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(80%);
+    z-index: -1;
+}
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #000000; /* Negro */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        label {
+            width: 40%; /* Ancho de las etiquetas */
+            text-align: left;
+            font-weight: bold;
+            color: #000000; /* Negro */
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], textarea {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 16px;
+            background-color: #f4ecf7;
+        }
+
+        /* El campo de descripción estará separado y ocupará todo el ancho */
+        .descripcion-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .descripcion-group textarea {
+            width: 100%;
+            height: 30px;
+            resize: none;
+            background-color: #f4ecf7; /* Verde menta */
+        }
+
+        /* Estilos de los botones */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color:  #e9f7ef ;
+            color: black;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 40%; /* Para que ocupen el 48% del ancho cada uno */
+        }
+
+        button:hover {
+            background-color: #f4ecf7;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"], input[type="number"], input[type="date"], textarea {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ingresar Producto Sin Azucar</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Nombre producto -->
+            <div class="form-group">
+                <label for="nombre_producto">Nombre producto:</label>
+                <input type="text" id="nombre_producto" name="nombre_producto" required>
+            </div>
+            
+            <!-- Precio -->
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" required>
+            </div>
+
+            <!-- Nombre comercio -->
+            <div class="form-group">
+                <label for="nombre_comercio">Nombre comercio:</label>
+                <input type="text" id="nombre_comercio" name="nombre_comercio" required>
+            </div>
+
+            <!-- Fecha subida -->
+            <div class="form-group">
+                <label for="fecha_subida">Fecha subida:</label>
+                <input type="date" id="fecha_subida" name="fecha_subida" required>
+            </div>
+
+            <!-- Descripción (aquí se encuentra abajo de todos los otros campos) -->
+            <div class="descripcion-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" required></textarea>
+            </div>
+
+            <!-- Botones alineados: Guardar y Volver al Menú -->
+            <div class="buttons">
+                <button type="submit">Guardar Producto</button>
+                <button type="button" onclick="window.location.href='{% url 'menu_principal' %}'">Volver al Menú</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
